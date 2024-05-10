@@ -1,6 +1,4 @@
-Requirements : 
-
-#### What is this ?
+### What is this ?
 - A standardised environment, using Docker for developing the contracting package & running unit tests.
 
 #### Quickstart 
@@ -18,6 +16,8 @@ Requirements :
     - make contracting-dev-up
 5. Run contracting unit tests
     - `pytest contracting/`
+6. When you're finished
+    - from the test-shell `exit`
 
 ## TO-DO
 - [ ] Bring Contracting tests up to date with Xian improvements
