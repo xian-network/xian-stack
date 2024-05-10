@@ -11,5 +11,6 @@ RUN pip install pytest
 # Here we install the dependencies for contracting and later overwrite this folder with the mounted folder
 COPY ./contracting ./contracting
 RUN pip install -e ./contracting
+RUN pip install xian-py
 
 CMD ["tail", "-f", "/dev/null"]
