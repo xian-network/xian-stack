@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  contracting:
+    hostname: contracting-dev-shell
+    build: 
+      context: .
+      dockerfile: ./docker/contracting.Dockerfile
+    volumes:
+      - ./contracting:/usr/src/app/contracting
+      - ./contracts:/usr/src/app/contracts
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "pip install -e ./contracting && tail -f /dev/null"
