@@ -11,9 +11,9 @@
     - (optional) : create a new feature branch for making changes to contracting
         - `git checkout -b <new-branch-name>`
 3. Build the environment
-    - make contracting-dev-build
+    - `make contracting-dev-build`
 4. Start the container shell
-    - make contracting-dev-up
+    - `make contracting-dev-up`
 5. Run contracting unit tests
     - `pytest contracting/`
 6. When you're finished
