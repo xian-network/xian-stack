@@ -1,3 +1,4 @@
 .pytest_cache
 .github
 __pycache__
+.DS_Store
