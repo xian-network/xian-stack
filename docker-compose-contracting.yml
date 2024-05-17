@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: ./docker/contracting.Dockerfile
     volumes:
-      - ./contracting:/usr/src/app/contracting
+      - ./xian-contracting:/usr/src/app/xian-contracting
       - ./contracts:/usr/src/app/contracts
     stdin_open: true
     tty: true
     command: >
-      bash -c "pip install -e ./contracting && tail -f /dev/null"
+      bash -c "pip install -e ./xian-contracting && tail -f /dev/null"

@@ -9,8 +9,8 @@ WORKDIR /usr/src/app
 RUN pip install pytest
 
 # Here we install the dependencies for contracting and later overwrite this folder with the mounted folder
-COPY ./contracting ./contracting
-RUN pip install -e ./contracting
+COPY ./xian-contracting ./xian-contracting
+RUN pip install -e ./xian-contracting
 RUN pip install xian-py
 
 CMD ["tail", "-f", "/dev/null"]
