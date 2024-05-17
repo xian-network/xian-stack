@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  core:
+    hostname: core-dev-shell
+    build: 
+      context: .
+      dockerfile: ./docker/core.Dockerfile
+    volumes:
+      - ./xian-core:/usr/src/app/xian-core
+      - ./xian-contracting:/usr/src/app/xian-core/xian-contracting
+      - ./.cometbft:/root/.cometbft
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "pip install -e ./xian-core && tail -f /dev/null"
