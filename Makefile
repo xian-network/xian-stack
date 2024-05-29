@@ -21,12 +21,28 @@ core-dev-build:
 
 core-dev-up:
 	docker-compose -f docker-compose-core.yml up -d
+
+core-dev-down:
+	docker-compose -f docker-compose-core.yml down
+
+core-dev-shell:
+	make core-dev-up
 	docker-compose -f docker-compose-core.yml exec core /bin/bash
 
 setup:
 	mkdir -p ./cometbft
 	git clone https://github.com/xian-network/xian-core.git
+	cd xian-core
+	git checkout $(CORE_BRANCH)
 	git clone https://github.com/xian-network/xian-contracting.git
+	cd xian-contracting
+	git checkout $(CONTRACTING_BRANCH)
+
+checkout:
+	cd xian-core
+	git checkout $(CORE_BRANCH)
+	cd xian-contracting
+	git checkout $(CONTRACTING_BRANCH)
 
 pull:
 	cd xian-core
@@ -35,3 +51,15 @@ pull:
 	cd xian-contracting
 	git checkout $(CONTRACTING_BRANCH)
 	git pull
+
+wipe:
+	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make wipe"
+
+dwu:
+	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make dwu"
+
+down:
+	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make down"
+
+up:
+	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up"
