@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   core:
-    hostname: core-dev-shell
+    hostname: xian-stack
     build: 
       context: .
       dockerfile: ./docker/core.Dockerfile
