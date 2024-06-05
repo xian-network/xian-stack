@@ -12,4 +12,9 @@ services:
     stdin_open: true
     tty: true
     command: >
+    ports:
+      - "26657:26657"
+      - "26656:26656"
+      - "26657:26657"
       bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"
+
