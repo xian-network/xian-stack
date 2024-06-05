@@ -1,6 +1,5 @@
 CONTRACTING_BRANCH ?= master
 CORE_BRANCH ?= master
-SEED_NODE_ADDRESS ?= 1
 # CONTRACTING_BRANCH and CORE_BRANCH are environment variables used to specify the branch of the xian-core and xian-contracting repositories respectively that should be used when performing git operations in the 'pull' target of this Makefile. By default, they are set to 'master'.
 
 # Usage:
@@ -38,8 +37,8 @@ setup:
 	cd xian-contracting && git checkout $(CONTRACTING_BRANCH)
 
 checkout:
-	cd xian-core && git pull && git checkout $(CORE_BRANCH)
-	cd xian-contracting && git pull && git checkout $(CONTRACTING_BRANCH)
+	cd xian-core && git checkout master && git pull && git checkout $(CORE_BRANCH)
+	cd xian-contracting && git checkout master && git pull && git checkout $(CONTRACTING_BRANCH)
 
 wipe:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make wipe"
