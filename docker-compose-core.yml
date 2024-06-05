@@ -12,4 +12,4 @@ services:
     stdin_open: true
     tty: true
     command: >
-      bash -c "pip install -e ./xian-core && tail -f /dev/null"
+      bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"
