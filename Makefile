@@ -6,8 +6,7 @@ CORE_BRANCH ?= master
 # Usage:
 # You can override these variables directly from the command line when invoking make. For example:
 # make pull CONTRACTING_BRANCH=development CORE_BRANCH=feature-branch
-# This will check out and pull the 'development' branch for xian-contracting and the 'feature-branch'
-
+# This will check out and pull the 'development' branch for xian-contracting and the 'feature-branch' for xian-core
 
 contracting-dev-up:
 	docker-compose -f docker-compose-contracting.yml up -d
