@@ -11,5 +11,10 @@ services:
       - ./.cometbft:/root/.cometbft
     stdin_open: true
     tty: true
+    ports:
+      - "26657:26657"
+      - "26656:26656"
+      - "26660:26660"
     command: >
-      bash -c "pip install -e ./xian-core && tail -f /dev/null"
+      bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"
+

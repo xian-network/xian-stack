@@ -33,5 +33,7 @@ RUN npm install pm2 -g
 
 # Expose port 26657 for cometbft
 EXPOSE 26657
+EXPOSE 26656
+EXPOSE 26660
 
 CMD ["tail", "-f", "/dev/null"]
