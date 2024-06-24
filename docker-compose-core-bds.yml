@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: bds
     volumes:
       - ./.bds.db:/var/lib/postgresql/data
     ports:
