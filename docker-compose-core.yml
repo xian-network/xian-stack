@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   core:
+    platform: linux/amd64
     hostname: xian-stack
     build: 
       context: .
@@ -16,5 +17,4 @@ services:
       - "26656:26656"
       - "26660:26660"
     command: >
-      bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"
-
+      bash -c "pip install ./xian-core && pip install ./xian-core/xian-contracting && tail -f /dev/null"

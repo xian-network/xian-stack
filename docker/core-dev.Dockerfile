@@ -6,13 +6,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/src/app
 
+RUN pip install pytest
 
 # Here we install the dependencies for contracting and later overwrite this folder with the mounted folder
 COPY ./xian-core ./xian-core
 COPY ./xian-contracting ./xian-core/xian-contracting
 
-RUN pip install ./xian-core
-RUN pip install ./xian-core/xian-contracting
+RUN pip install -e ./xian-core
+RUN pip install -e ./xian-core/xian-contracting
 
 # Install cometbft
 
@@ -28,6 +29,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
 
 # Install pm2 globally
 RUN npm install pm2 -g
+
 
 # Expose port 26657 for cometbft
 EXPOSE 26657

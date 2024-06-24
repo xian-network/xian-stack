@@ -1,10 +1,14 @@
 ### What is this ?
-- A standardised environment, using Docker for developing the xian-core / xian-contracting packages, running unit tests, and running a node.
+- A standardised environment using Docker for :
+- Running the Xian Node
+- Running a Xian Node / Blockchain Data Service (BDS) w/ Postgres DB
+- Developing the xian-core / xian-contracting packages
+- Running unit tests
 
 ### How it works
 - The necessary environments are configured & built by Docker.
-- xian-contracting, xian-core & .cometbft folders are mounted from the host machine inside the docker containers.
-- Any changes to these folders on the host machine are reflected in the docker containers.
+- `xian-contracting`, `xian-core`, `.cometbft` & `.bds.db` folders are mounted from the host machine inside the docker containers.
+- Any changes to these folders on the host machine are reflected in the docker containers, and visa-versa
 
 #### Prerequisites
 1. Install Docker
@@ -35,6 +39,8 @@
 
 #### Core Dev Quickstart
 
+*For running a xian-node with postgres for BDS*
+
 ##### Build & Initialise
 1. Build the xian core environment
     - `make core-dev-build`
@@ -51,9 +57,11 @@
 3. Exit the shell when finished
     - `exit`
 
-##### To run a node (in shell)
+#### To run a node (in shell)
+1. Build the container :
+    - `make core-build` / `make core-dev-build` / `make core-bds-build`
 1. Enter the shell :
-    - `make core-dev-shell`
+    - `make core-dev-shell` / `make core-shell` / `make core-bds-shell`
 2. Start the node :
     - `make up`
 3. Stop the node :
@@ -63,7 +71,7 @@
 
 ##### To run a node (without shell)
 1. Start the container:
-    - `make core-dev-up`
+    - `make core-dev-up` / `make core-up` / `make core-bds-up`
 2. Start the node:
     - `make up`
 3. Stop the node:
