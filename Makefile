@@ -110,7 +110,8 @@ init:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make init"
 
 
-# --moniker "<node-moniker>" --genesis-file-name "e.g. genesis-devnet.json" --validator-privkey "<priv_key>" --seed-node-address "<some_seed_id>@<seed_ip>" --copy-genesis --service-node
+# '--moniker some-node-moniker --genesis-file-name genesis-devnet.json --validator-privkey priv_key --seed-node-address some_seed_id>@<seed_ip> --copy-genesis --service-node
+
 configure:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core/src/xian/tools/ && python configure.py ${CONFIGURE_ARGS}"
 
