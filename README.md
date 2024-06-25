@@ -58,7 +58,7 @@
 3. Exit the shell when finished
     - `exit`
 
-#### To run a node (in shell)
+##### To run a node (in shell)
 1. Build the container :
     - `make core-build` / `make core-dev-build` / `make core-bds-build`
 1. Enter the shell :
