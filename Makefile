@@ -61,7 +61,7 @@ core-dev-shell:
 # ::: Core Commands
 # ::: For running a xian-node
 
-make core-build:
+core-build:
 	docker-compose -f docker-compose-core.yml build
 
 core-up:
