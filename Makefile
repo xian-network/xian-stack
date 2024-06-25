@@ -18,7 +18,7 @@ setup:
 	cd xian-contracting && git checkout $(CONTRACTING_BRANCH)
 	mkdir -p ./.bds.db
 
-make pull:
+pull:
 	cd xian-core && git pull
 	cd xian-contracting && git pull
 
