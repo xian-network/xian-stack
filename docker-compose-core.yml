@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   core:
+    restart: always
     platform: linux/amd64
     hostname: xian-stack
     build: 
