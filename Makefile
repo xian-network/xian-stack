@@ -56,7 +56,7 @@ core-dev-down:
 
 core-dev-shell:
 	make core-dev-up
-	docker-compose -f docker-compose-core.yml docker-compose-core-dev.yml exec core /bin/bash
+	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml exec core /bin/bash
 
 # ::: Core Commands
 # ::: For running a xian-node

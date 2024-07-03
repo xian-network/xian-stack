@@ -1,7 +1,6 @@
 version: '3.8'
 services:
   contracting:
-    platform: linux/amd64
     hostname: contracting-dev-shell
     build: 
       context: .
