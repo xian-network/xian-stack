@@ -15,16 +15,18 @@
     - [MacOS](https://docs.docker.com/desktop/install/mac-install/)
     - [Windows](https://docs.docker.com/desktop/install/windows-install/)
     - Linux
-        - `curl -fsSL https://get.docker.com -o get-docker.sh`
-        - `sudo sh get-docker.sh`
-        - `sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
-        - `sudo chmod +x /usr/local/bin/docker-compose`
-        - `rm get-docker.sh`
-
+    ```bash
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    rm get-docker.sh
+    ```
 2. Pull xian repositories
-    - `make setup`
-
-#### Contracting Dev Quickstart 
+    ```bash
+    make setup
+    ```
+#### Contracting Dev Quickstart
 1. Clone Contracting
     - `git clone https://github.com/xian-network/contracting`
     - (optional) : create a new feature branch for making changes to contracting
