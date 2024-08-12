@@ -3,6 +3,7 @@ services:
   core:
     hostname: xian-stack-dev
     build: 
-      dockerfile: ./docker/core-dev.Dockerfile
+      dockerfile: ./docker/core-dev.Dockerfile  
+    network_mode: "host"
     command: >
       bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"

@@ -16,5 +16,6 @@ services:
       - "26657:26657"
       - "26656:26656"
       - "26660:26660"
+    network_mode: "host"
     command: >
-      bash -c "pip install ./xian-core && pip install ./xian-core/xian-contracting && tail -f /dev/null"
+      bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"

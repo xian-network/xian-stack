@@ -27,8 +27,8 @@ checkout:
 	cd xian-contracting && git fetch && git checkout $(CONTRACTING_BRANCH) && git pull
 
 
-# ::: Contracting Dev Commands :::
-# ::: For developing on / running tests on the xian-contracting package :::
+# ::: Contracting Dev Commands
+# ::: For developing on / running tests on the xian-contracting package
 
 contracting-dev-up:
 	docker-compose -f docker-compose-contracting.yml up -d
@@ -89,6 +89,9 @@ core-bds-down:
 core-bds-shell:
 	make core-bds-up
 	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml exec core /bin/bash
+
+wipe-bds:
+	rm -rf ./.bds.db/*
 
 # ::: Core Node Commands
 # ::: For interacting with cometbft / xian core running inside a container

@@ -11,8 +11,8 @@ WORKDIR /usr/src/app
 COPY ./xian-core ./xian-core
 COPY ./xian-contracting ./xian-core/xian-contracting
 
-RUN pip install ./xian-core
-RUN pip install ./xian-core/xian-contracting
+RUN pip install -e ./xian-core
+RUN pip install -e ./xian-core/xian-contracting
 
 # Install cometbft
 
