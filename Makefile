@@ -92,6 +92,7 @@ core-bds-shell:
 
 wipe-bds:
 	rm -rf ./.bds.db/*
+	make wipe
 
 # ::: Core Node Commands
 # ::: For interacting with cometbft / xian core running inside a container
