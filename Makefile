@@ -56,7 +56,7 @@ core-dev-down:
 
 core-dev-shell:
 	make core-dev-up
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml exec core /bin/bash
+	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml exec -w /usr/src/app/xian-core core /bin/bash
 
 # ::: Core Commands
 # ::: For running a xian-node
@@ -72,7 +72,7 @@ core-down:
 
 core-shell:
 	make core-up
-	docker-compose -f docker-compose-core.yml exec core /bin/bash
+	docker-compose -f docker-compose-core.yml exec  -w /usr/src/app/xian-core core /bin/bash
 
 # ::: Core BDS Commands 
 # ::: For running a xian-node with Blockchain Data Service enabled
@@ -88,11 +88,10 @@ core-bds-down:
 
 core-bds-shell:
 	make core-bds-up
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml exec core /bin/bash
+	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml exec -w /usr/src/app/xian-core core /bin/bash
 
 wipe-bds:
 	rm -rf ./.bds.db/*
-	make wipe
 
 # ::: Core Node Commands
 # ::: For interacting with cometbft / xian core running inside a container
@@ -100,6 +99,10 @@ wipe-bds:
 
 wipe:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make wipe"
+
+wipe-all:
+	make wipe-bds
+	make wipe
 
 dwu:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make dwu"
