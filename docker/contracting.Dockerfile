@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/src/app
 
 RUN pip install pytest
+RUN pip install parameterized
 
 # Here we install the dependencies for contracting and later overwrite this folder with the mounted folder
 COPY ./xian-contracting ./xian-contracting
