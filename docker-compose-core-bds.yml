@@ -8,6 +8,15 @@ services:
       POSTGRES_DB: "xian"
     volumes:
       - ./.bds.db:/var/lib/postgresql/data
-    # ports:
-    #   - "5432:5432"
+
     network_mode: "host"
+
+  postgraphile:
+    build:
+      context: .
+      dockerfile: ./docker/postgraphile.Dockerfile  
+    depends_on:
+      - postgres
+    network_mode: "host"
+
+    command: ["postgraphile", "-c", "postgres://postgres:1234@localhost:5432/xian", "--retry-on-init-fail", "--host", "0.0.0.0"]
