@@ -5,7 +5,7 @@
    WORKDIR /usr/src/app
 
    # Install PostGraphile globally.
-   RUN npm install -g postgraphile
+   RUN npm install -g postgraphile postgraphile-plugin-connection-filter
 
    # Expose the port PostGraphile will run on.
    EXPOSE 5000

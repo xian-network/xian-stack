@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   postgres:
+    restart: always
     image: postgres:latest
     environment:
       POSTGRES_USER: "postgres"
@@ -8,10 +9,10 @@ services:
       POSTGRES_DB: "xian"
     volumes:
       - ./.bds.db:/var/lib/postgresql/data
-
     network_mode: "host"
 
   postgraphile:
+    restart: always
     build:
       context: .
       dockerfile: ./docker/postgraphile.Dockerfile  
@@ -19,4 +20,18 @@ services:
       - postgres
     network_mode: "host"
 
-    command: ["postgraphile", "-c", "postgres://postgres:1234@localhost:5432/xian", "--retry-on-init-fail", "--host", "0.0.0.0"]
+    command: [
+      "postgraphile", 
+      "-c", 
+      "postgres://readonly_user:readonly@localhost:5432/xian", 
+      "--retry-on-init-fail", 
+      "--host", 
+      "0.0.0.0", 
+      "--enhance-graphiql",
+      "-j",
+      "--watch",  # Watch for schema changes
+      "--show-error-stack",  # Show error stack in GraphiQL
+      "--extended-errors", "hint,detail,errcode",  # Show extended error details
+      "--append-plugins",
+      "postgraphile-plugin-connection-filter"
+    ]
