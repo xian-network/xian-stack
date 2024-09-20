@@ -113,6 +113,9 @@ down:
 up:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up"
 
+up-bds:
+	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up-bds"
+
 init:
 	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make init"
 
