@@ -17,9 +17,9 @@ RUN pip install -e ./xian-core/xian-contracting
 
 # Install cometbft
 
-RUN wget https://github.com/cometbft/cometbft/releases/download/v0.38.7/cometbft_0.38.7_linux_amd64.tar.gz \
-    && tar -xf cometbft_0.38.7_linux_amd64.tar.gz \
-    && rm cometbft_0.38.7_linux_amd64.tar.gz \
+RUN wget https://github.com/cometbft/cometbft/releases/download/v0.38.12/cometbft_0.38.12_linux_amd64.tar.gz \
+    && tar -xf cometbft_0.38.12_linux_amd64.tar.gz \
+    && rm cometbft_0.38.12_linux_amd64.tar.gz \
     && ./cometbft init
 
 
