@@ -46,7 +46,7 @@ contracting-dev-down:
 # ::: For developing on / running tests on the xian-core package
 
 core-dev-build:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml build
+	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml build --no-cache
 
 core-dev-up:
 	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up -d
@@ -62,7 +62,7 @@ core-dev-shell:
 # ::: For running a xian-node
 
 core-build:
-	docker-compose -f docker-compose-core.yml build
+	docker-compose -f docker-compose-core.yml build --no-cache
 
 core-up:
 	docker-compose -f docker-compose-core.yml up -d
@@ -78,7 +78,7 @@ core-shell:
 # ::: For running a xian-node with Blockchain Data Service enabled
 
 core-bds-build:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml build
+	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml build --no-cache
 
 core-bds-up:
 	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up -d
