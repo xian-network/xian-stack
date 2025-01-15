@@ -29,6 +29,8 @@ checkout:
 
 # ::: Contracting Dev Commands
 # ::: For developing on / running tests on the xian-contracting package
+contracting-dev-shell:
+	make contracting-dev-up
 
 contracting-dev-up:
 	docker-compose -f docker-compose-contracting.yml up -d
