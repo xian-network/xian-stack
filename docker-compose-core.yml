@@ -1,8 +1,10 @@
 version: '3.8'
 
 networks:
-  xian-internal:
-    internal: true
+  xian-net:
+    internal: false  # Allow internet access for package installation
+  xian-db:
+    internal: true   # Keep database isolated
 
 services:
   core:
@@ -18,7 +20,8 @@ services:
     stdin_open: true
     tty: true
     networks:
-      - xian-internal
+      - xian-net
+      - xian-db
     ports:
       - "26657:26657"
       - "26656:26656"

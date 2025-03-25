@@ -28,14 +28,24 @@
     ```
 
 #### Docker Networking Configuration
-The stack uses a secure internal Docker network configuration across all services:
+The stack uses a secure dual-network configuration:
 
-- All services (Core, BDS, Development) communicate through an internal Docker network called `xian-internal`
-- The PostgreSQL database is not exposed to the internet and is only accessible to other containers
-- Exposed ports:
-  - Core node: 26657, 26656, 26660 (required for blockchain operation)
-  - PostGraphile: 5000 (GraphQL API access)
-  - PostgreSQL: Not exposed (only internal access)
+- `xian-net`: Main network for service communication and internet access
+  - Allows containers to download dependencies and packages
+  - Used by core services for communication
+  - Exposed ports:
+    - Core node: 26657, 26656, 26660 (required for blockchain operation)
+    - PostGraphile: 5000 (GraphQL API access)
+
+- `xian-db`: Isolated network for database access
+  - Internal only, no internet access
+  - PostgreSQL is only accessible within this network
+  - Provides an additional security layer for database operations
+
+This dual-network setup ensures:
+- Containers can download required packages during build and runtime
+- Database remains secure and isolated from external access
+- Services can communicate as needed while maintaining security boundaries
 
 ##### Understanding Docker Compose File Combinations
 The stack uses multiple Docker Compose files that can be combined for different purposes:

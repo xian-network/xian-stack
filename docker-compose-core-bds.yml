@@ -1,8 +1,10 @@
 version: '3.8'
 
 networks:
-  xian-internal:
-    internal: true  # This prevents the network from having external connectivity
+  xian-net:
+    internal: false  # Allow internet access for package installation
+  xian-db:
+    internal: true   # Keep database isolated
 
 services:
   postgres:
@@ -15,7 +17,7 @@ services:
     volumes:
       - ./.bds.db:/var/lib/postgresql/data
     networks:
-      - xian-internal
+      - xian-db
     # Explicitly disable external port mapping
     expose:
       - "5432"
@@ -28,7 +30,8 @@ services:
     depends_on:
       - postgres
     networks:
-      - xian-internal
+      - xian-db
+      - xian-net
     ports:
       - "5000:5000"
     command: [

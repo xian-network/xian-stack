@@ -1,8 +1,10 @@
 version: '3.8'
 
 networks:
-  xian-internal:
-    internal: true
+  xian-net:
+    internal: false  # Allow internet access for package installation
+  xian-db:
+    internal: true   # Keep database isolated
 
 services:
   core:
@@ -10,6 +12,7 @@ services:
     build: 
       dockerfile: ./docker/core-dev.Dockerfile  
     networks:
-      - xian-internal
+      - xian-net
+      - xian-db
     command: >
       bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"
