@@ -1,4 +1,9 @@
 version: '3.8'
+
+networks:
+  xian-internal:
+    internal: true
+
 services:
   core:
     restart: always
@@ -12,6 +17,8 @@ services:
       - ./.cometbft:/root/.cometbft
     stdin_open: true
     tty: true
+    networks:
+      - xian-internal
     ports:
       - "26657:26657"
       - "26656:26656"

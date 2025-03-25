@@ -1,9 +1,15 @@
 version: '3.8'
+
+networks:
+  xian-internal:
+    internal: true
+
 services:
   core:
     hostname: xian-stack-dev
     build: 
       dockerfile: ./docker/core-dev.Dockerfile  
-    # network_mode: host
+    networks:
+      - xian-internal
     command: >
       bash -c "pip install -e ./xian-core && pip install -e ./xian-core/xian-contracting && tail -f /dev/null"

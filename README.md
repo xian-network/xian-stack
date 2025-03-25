@@ -26,6 +26,53 @@
     ```bash
     make setup
     ```
+
+#### Docker Networking Configuration
+The stack uses a secure internal Docker network configuration across all services:
+
+- All services (Core, BDS, Development) communicate through an internal Docker network called `xian-internal`
+- The PostgreSQL database is not exposed to the internet and is only accessible to other containers
+- Exposed ports:
+  - Core node: 26657, 26656, 26660 (required for blockchain operation)
+  - PostGraphile: 5000 (GraphQL API access)
+  - PostgreSQL: Not exposed (only internal access)
+
+##### Understanding Docker Compose File Combinations
+The stack uses multiple Docker Compose files that can be combined for different purposes:
+- `docker-compose-core.yml`: Base configuration for running a Xian node
+- `docker-compose-core-dev.yml`: Adds development-specific settings
+- `docker-compose-core-bds.yml`: Adds Blockchain Data Service with PostgreSQL
+
+When combining compose files with the `-f` flag, Docker merges them from left to right, with later files overriding settings from earlier ones. For example:
+```bash
+# Runs core with BDS - combines settings from both files
+docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up
+
+# Runs development environment with BDS - combines all three configurations
+docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up
+```
+
+##### Makefile Shortcuts
+To simplify these commands, the Makefile provides convenient shortcuts:
+
+```bash
+# Start a node without BDS
+make up
+
+# Start a node with BDS enabled
+make up-bds
+
+# Common combinations with their Makefile equivalents:
+# Regular node:
+docker-compose -f docker-compose-core.yml up -d    →    make core-up
+# Node with BDS:
+docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up -d    →    make core-bds-up
+# Development environment with BDS:
+docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up -d    →    make core-dev-up
+```
+
+These Makefile commands handle both starting the containers and running the node. For example, `make up-bds` is equivalent to running the containers with BDS and starting the node with BDS enabled.
+
 #### Contracting Dev Quickstart
 1. Clone Contracting
     - `git clone https://github.com/xian-network/contracting`
