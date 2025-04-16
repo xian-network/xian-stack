@@ -27,6 +27,38 @@
     make setup
     ```
 
+#### Firewall Configuration (UFW)
+For secure operation, configure the Ubuntu/Debian firewall (UFW) with these recommended settings:
+
+```bash
+# Install UFW if not already present
+sudo apt install ufw
+
+# Set default policies
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Allow SSH (Important: add this first to prevent lockout)
+sudo ufw allow 22/tcp comment 'SSH'
+
+# Allow required Tendermint ports
+sudo ufw allow 26656/tcp comment 'Tendermint P2P'
+sudo ufw allow 26657/tcp comment 'Tendermint RPC'
+sudo ufw allow 26660/tcp comment 'Tendermint Prometheus'
+
+# Allow web traffic
+sudo ufw allow 80/tcp comment 'HTTP'
+sudo ufw allow 443/tcp comment 'HTTPS'
+
+# Enable UFW
+sudo ufw enable
+
+# Verify rules
+sudo ufw status numbered
+```
+
+Note: Ensure SSH access is allowed before enabling UFW to prevent being locked out of your system.
+
 #### Docker Networking Configuration
 The stack uses a secure dual-network configuration:
 
