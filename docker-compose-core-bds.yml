@@ -47,6 +47,6 @@ services:
       "--show-error-stack",  # Show error stack in GraphiQL
       "--extended-errors", "hint,detail,errcode",  # Show extended error details
       "--append-plugins",
-      "postgraphile-plugin-connection-filter",
+      "postgraphile-plugin-connection-filter,@graphile/pg-aggregates",
       "--cors"
     ]
