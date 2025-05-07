@@ -10,18 +10,33 @@
 - `xian-contracting`, `xian-core`, `.cometbft` & `.bds.db` folders are mounted from the host machine inside the docker containers.
 - Any changes to these folders on the host machine are reflected in the docker containers, and visa-versa
 
-#### Prerequisites
-1. Install Docker
-    - [MacOS](https://docs.docker.com/desktop/install/mac-install/)
-    - [Windows](https://docs.docker.com/desktop/install/windows-install/)
-    - Linux
-    ```bash
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sudo sh get-docker.sh
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-    rm get-docker.sh
-    ```
+### Prerequisites
+#### Install Docker Engine & Docker Compose
+
+##### Windows
+- **Docker Desktop for Windows**: [Installation Guide](https://docs.docker.com/desktop/install/windows-install/)
+  - Includes Docker Engine, Docker CLI, Docker Compose, and other tools in a single installation
+  - Requirements: Windows 10/11 64-bit with WSL 2 backend
+
+##### Mac
+- **Docker Desktop for Mac**: [Installation Guide](https://docs.docker.com/desktop/install/mac-install/)
+  - Available for both Intel and Apple Silicon
+  - Includes Docker Engine, Docker CLI, Docker Compose, and other Docker tools
+  - Requirements: macOS 11 or newer (Big Sur and above)
+
+##### Linux
+- **Docker Engine**: [Installation Guide](https://docs.docker.com/engine/install/)
+  - [Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+  - [Debian](https://docs.docker.com/engine/install/debian/)
+  - [CentOS](https://docs.docker.com/engine/install/centos/)
+  - [Fedora](https://docs.docker.com/engine/install/fedora/)
+
+- **Docker Compose**: [Installation Guide](https://docs.docker.com/compose/install/)
+  - For Linux, Docker Compose is installed separately after Docker Engine
+  - Can be installed via package manager or by downloading the binary directly
+
+*Note: Docker Desktop for Windows and Mac already include Docker Compose, while on Linux systems you'll need to install Docker Engine first and then Docker Compose as a separate step.*
+
 2. Pull xian repositories
     ```bash
     make setup
