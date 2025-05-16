@@ -40,7 +40,7 @@ make init
 
 ### 2.4 Configure the Node
 ```bash
-make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis_mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220:26656" --copy-genesis'
+make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis-mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220" --copy-genesis'
 ```
 
 ### 2.5 Enter the Core Shell
@@ -89,7 +89,7 @@ make init
 
 ### 3.4 Configure the Node
 ```bash
-make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis_mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220:26656" --copy-genesis --service-node'
+make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis-mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220" --copy-genesis --service-node'
 ```
 
 ### 3.5 Enter the BDS Shell
@@ -138,7 +138,7 @@ make init
 
 ### 4.4 Configure the Node
 ```bash
-make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis_mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220:26656" --copy-genesis --service-node'
+make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis-mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220" --copy-genesis --service-node'
 ```
 
 ### 4.5 Enter the Dev Shell
