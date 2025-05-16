@@ -33,64 +33,64 @@ contracting-dev-shell:
 	make contracting-dev-up
 
 contracting-dev-up:
-	docker-compose -f docker-compose-contracting.yml up -d
-	docker-compose -f docker-compose-contracting.yml exec contracting /bin/bash
+	docker compose -f docker-compose-contracting.yml up -d
+	docker compose -f docker-compose-contracting.yml exec contracting /bin/bash
 
 contracting-dev-build:
-	docker-compose -f docker-compose-contracting.yml build
+	docker compose -f docker-compose-contracting.yml build
 
 
 contracting-dev-down:
-	docker-compose -f docker-compose-contracting.yml down
+	docker compose -f docker-compose-contracting.yml down
 
 
 # ::: Core Dev Commands
 # ::: For developing on / running tests on the xian-core package
 
 core-dev-build:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml build --no-cache
+	docker compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml build --no-cache
 
 core-dev-up:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up -d
+	docker compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up -d
 
 core-dev-down:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml down
+	docker compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml down
 
 core-dev-shell:
 	make core-dev-up
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml exec -w /usr/src/app/xian-core core /bin/bash
+	docker compose -f docker-compose-core.yml -f docker-compose-core-dev.yml exec -w /usr/src/app/xian-core core /bin/bash
 
 # ::: Core Commands
 # ::: For running a xian-node
 
 core-build:
-	docker-compose -f docker-compose-core.yml build --no-cache
+	docker compose -f docker-compose-core.yml build --no-cache
 
 core-up:
-	docker-compose -f docker-compose-core.yml up -d
+	docker compose -f docker-compose-core.yml up -d
 
 core-down:
-	docker-compose -f docker-compose-core.yml down
+	docker compose -f docker-compose-core.yml down
 
 core-shell:
 	make core-up
-	docker-compose -f docker-compose-core.yml exec  -w /usr/src/app/xian-core core /bin/bash
+	docker compose -f docker-compose-core.yml exec  -w /usr/src/app/xian-core core /bin/bash
 
 # ::: Core BDS Commands 
 # ::: For running a xian-node with Blockchain Data Service enabled
 
 core-bds-build:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml build --no-cache
+	docker compose -f docker-compose-core.yml -f docker-compose-core-bds.yml build --no-cache
 
 core-bds-up:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up -d
+	docker compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up -d
 
 core-bds-down:
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml down
+	docker compose -f docker-compose-core.yml -f docker-compose-core-bds.yml down
 
 core-bds-shell:
 	make core-bds-up
-	docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml exec -w /usr/src/app/xian-core core /bin/bash
+	docker compose -f docker-compose-core.yml -f docker-compose-core-bds.yml exec -w /usr/src/app/xian-core core /bin/bash
 
 wipe-bds:
 	rm -rf ./.bds.db/*
@@ -100,32 +100,32 @@ wipe-bds:
 # ::: container must be UP, see make commands core-dev-up / core-up / core-bds-up
 
 wipe:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make wipe"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make wipe"
 
 wipe-all:
 	make wipe-bds
 	make wipe
 
 dwu:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make dwu"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make dwu"
 
 down:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make down"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make down"
 
 up:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up"
 
 up-bds:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up-bds"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make up-bds"
 
 init:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make init"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make init"
 
 
 # '--moniker some-node-moniker --genesis-file-name genesis-devnet.json --validator-privkey priv_key --seed-node <seed_ip> --copy-genesis --service-node'
 
 configure:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core/src/xian/tools/ && python configure.py ${CONFIGURE_ARGS}"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core/src/xian/tools/ && python configure.py ${CONFIGURE_ARGS}"
 
 node-id:
-	docker-compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make node-id"
+	docker compose -f docker-compose-core.yml exec -T core /bin/bash -c "cd xian-core && make node-id"
