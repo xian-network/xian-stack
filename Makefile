@@ -1,5 +1,5 @@
-CONTRACTING_BRANCH ?= master
-CORE_BRANCH ?= master
+CONTRACTING_BRANCH ?= mainnet
+CORE_BRANCH ?= mainnet
 # CONTRACTING_BRANCH and CORE_BRANCH are environment variables used to specify the branch of the xian-core and xian-contracting repositories respectively that should be used when performing git operations in the 'pull' target of this Makefile. By default, they are set to 'master'.
 
 # ::: Usage

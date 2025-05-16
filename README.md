@@ -1,188 +1,299 @@
-### What is this ?
-- A standardised environment using Docker for :
-- Running the Xian Node
-- Running a Xian Node / Blockchain Data Service (BDS) w/ Postgres DB
-- Developing the xian-core / xian-contracting packages
-- Running unit tests
+# Xian Stack Quickstart
 
-### How it works
-- The necessary environments are configured & built by Docker.
-- `xian-contracting`, `xian-core`, `.cometbft` & `.bds.db` folders are mounted from the host machine inside the docker containers.
-- Any changes to these folders on the host machine are reflected in the docker containers, and visa-versa
+This guide will get you up and running with the Xian blockchain stack as quickly as possible. For advanced details, see the **Reference** section at the end.
 
-### Prerequisites
-#### Install Docker Engine & Docker Compose
+---
 
-##### Windows
-- **Docker Desktop for Windows**: [Installation Guide](https://docs.docker.com/desktop/install/windows-install/)
-  - Includes Docker Engine, Docker CLI, Docker Compose, and other tools in a single installation
-  - Requirements: Windows 10/11 64-bit with WSL 2 backend
+## 1. Prerequisites
 
-##### Mac
-- **Docker Desktop for Mac**: [Installation Guide](https://docs.docker.com/desktop/install/mac-install/)
-  - Available for both Intel and Apple Silicon
-  - Includes Docker Engine, Docker CLI, Docker Compose, and other Docker tools
-  - Requirements: macOS 11 or newer (Big Sur and above)
+### 1.1 Install Docker & Docker Compose
+- **Mac:** [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+- **Linux:** [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
 
-##### Linux
-- **Docker Engine**: [Installation Guide](https://docs.docker.com/engine/install/)
-  - [Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-  - [Debian](https://docs.docker.com/engine/install/debian/)
-  - [CentOS](https://docs.docker.com/engine/install/centos/)
-  - [Fedora](https://docs.docker.com/engine/install/fedora/)
+> **Note:** Docker Desktop (Mac) includes Docker Compose. On Linux, install Docker Compose separately after Docker Engine.
 
-- **Docker Compose**: [Installation Guide](https://docs.docker.com/compose/install/)
-  - For Linux, Docker Compose is installed separately after Docker Engine
-  - Can be installed via package manager or by downloading the binary directly
-
-*Note: Docker Desktop for Windows and Mac already include Docker Compose, while on Linux systems you'll need to install Docker Engine first and then Docker Compose as a separate step.*
-
-2. Pull xian repositories
-    ```bash
-    make setup
-    ```
-
-#### Firewall Configuration (UFW)
-For secure operation, configure the Ubuntu/Debian firewall (UFW) with these recommended settings:
+### 1.2 Clone the Repositories
 
 ```bash
-# Install UFW if not already present
-sudo apt install ufw
+make setup CORE_BRANCH=mainnet CONTRACTING_BRANCH=mainnet
+```
+This will pull all required Xian repositories.
 
-# Set default policies
+---
+
+## 2. Running a Xian Node (Core Only)
+
+### 2.1 Build the Environment
+```bash
+make core-build
+```
+
+### 2.2 Start the Node Docker Container
+```bash
+make core-up
+```
+
+### 2.3 Initialize cometbft
+```bash
+make init
+```
+
+### 2.4 Configure the Node
+```bash
+make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis_mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220:26656" --copy-genesis'
+```
+
+### 2.5 Enter the Core Shell
+```bash
+make core-shell
+```
+
+### 2.6 Start the node
+```bash
+make up
+```
+
+### 2.7 View the logs to ensure the node is running
+```bash
+pm2 logs --lines 1000
+```
+
+### 2.8 Exit the Core Shell (the node will continue to run in the background)
+```bash
+exit
+```
+
+### 2.9 Stop the Node
+```bash
+make core-down
+```
+
+---
+
+## 3. Running a Node with Blockchain Data Service (BDS)
+
+### 3.1 Build the Environment
+```bash
+make core-bds-build
+```
+
+### 3.2 Start the Node Docker Container with BDS
+```bash
+make core-bds-up
+```
+
+### 3.3 Initialize cometbft
+```bash
+make init
+```
+
+### 3.4 Configure the Node
+```bash
+make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis_mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220:26656" --copy-genesis --service-node'
+```
+
+### 3.5 Enter the BDS Shell
+```bash
+make core-bds-shell
+```
+
+### 3.6 Start the node
+```bash
+make up-bds
+```
+
+### 3.7 View the logs to ensure the node is running
+```bash
+pm2 logs --lines 1000
+```
+
+### 3.8 Exit the BDS Shell (the node will continue to run in the background)
+```bash
+exit
+```
+
+### 3.9 Stop the Node
+```bash
+make core-bds-down
+```
+
+---
+
+## 4. Running a Node in Development Mode (Core Dev)
+
+### 4.1 Build the Dev Environment
+```bash
+make core-dev-build
+```
+
+### 4.2 Start the Dev Node Docker Container
+```bash
+make core-dev-up
+```
+
+### 4.3 Initialize cometbft
+```bash
+make init
+```
+
+### 4.4 Configure the Node
+```bash
+make configure CONFIGURE_ARGS='--moniker "<your node name>" --genesis-file-name "genesis_mainnet.json" --validator-privkey "<your validator privatekey>" --seed-node-address "c3861ffd16cf6708aef6683d3d0471b6dedb3116@152.53.18.220:26656" --copy-genesis --service-node'
+```
+
+### 4.5 Enter the Dev Shell
+```bash
+make core-dev-shell
+```
+
+### 4.6 Start the node
+```bash
+make up
+```
+
+### 4.7 View the logs to ensure the node is running
+```bash
+pm2 logs --lines 1000
+```
+
+### 4.8 Exit the Dev Shell (the node will continue to run in the background)
+```bash
+exit
+```
+
+### 4.9 Stop the Node
+```bash
+make core-dev-down
+```
+
+---
+
+## 5. Contracting Development Quickstart
+
+### 5.1 Clone Contracting (if not already done)
+```bash
+git clone https://github.com/xian-network/contracting
+cd contracting
+# (Optional) Create a new feature branch
+# git checkout -b <new-branch-name>
+```
+
+### 5.2 Build the Contracting Dev Environment
+```bash
+make contracting-dev-build
+```
+
+### 5.3 Start the Contracting Dev Shell
+```bash
+make contracting-dev-up
+```
+
+### 5.4 Run Contracting Unit Tests
+```bash
+pytest contracting/
+```
+
+### 5.5 Exit the Shell
+```bash
+exit
+```
+
+---
+
+## 6. Running Tests for Core
+
+### 6.1 Enter the Core Dev Shell
+```bash
+make core-dev-shell
+```
+
+### 6.2 Run Core Tests
+```bash
+pytest xian-core/tests/
+```
+
+### 6.3 Exit the Shell
+```bash
+exit
+```
+
+---
+
+## 7. Useful Makefile Shortcuts
+
+| Action | Command |
+|--------|---------|
+| Start node (core only) | `make core-up` |
+| Start node with BDS | `make core-bds-up` |
+| Start dev environment with BDS | `make core-dev-up` |
+| Stop node | `make down` |
+| Stop container | `make core-dev-down` |
+
+---
+
+## 8. (Optional) Firewall Configuration (Linux Only)
+
+If you are running on Ubuntu/Debian, you may want to secure your node with UFW:
+
+```bash
+sudo apt install ufw
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-
-# Allow SSH (Important: add this first to prevent lockout)
 sudo ufw allow 22/tcp comment 'SSH'
-
-# Allow required Tendermint ports
 sudo ufw allow 26656/tcp comment 'Tendermint P2P'
 sudo ufw allow 26657/tcp comment 'Tendermint RPC'
 sudo ufw allow 26660/tcp comment 'Tendermint Prometheus'
-
-# Allow web traffic
 sudo ufw allow 80/tcp comment 'HTTP'
 sudo ufw allow 443/tcp comment 'HTTPS'
-
-# Enable UFW
 sudo ufw enable
-
-# Verify rules
 sudo ufw status numbered
 ```
+> **Warning:** Always allow SSH before enabling UFW to avoid locking yourself out.
 
-Note: Ensure SSH access is allowed before enabling UFW to prevent being locked out of your system.
+---
 
-#### Docker Networking Configuration
-The stack uses a secure dual-network configuration:
+## 9. Troubleshooting
 
-- `xian-net`: Main network for service communication and internet access
-  - Allows containers to download dependencies and packages
-  - Used by core services for communication
-  - Exposed ports:
-    - Core node: 26657, 26656, 26660 (required for blockchain operation)
-    - PostGraphile: 5000 (GraphQL API access)
+- **Docker permission errors:** Try running with `sudo` or add your user to the `docker` group.
+- **Ports already in use:** Make sure no other services are using the required ports (26656, 26657, 26660, 5000).
+- **Containers not starting:** Run `docker-compose ps` or `docker ps` to check status. Use `docker-compose logs` for details.
+- **Database connection issues:** Ensure the `xian-db` network is running and not blocked by firewall.
 
-- `xian-db`: Isolated network for database access
-  - Internal only, no internet access
-  - PostgreSQL is only accessible within this network
-  - Provides an additional security layer for database operations
+---
 
-This dual-network setup ensures:
-- Containers can download required packages during build and runtime
-- Database remains secure and isolated from external access
-- Services can communicate as needed while maintaining security boundaries
+# Reference
 
-##### Understanding Docker Compose File Combinations
-The stack uses multiple Docker Compose files that can be combined for different purposes:
-- `docker-compose-core.yml`: Base configuration for running a Xian node
-- `docker-compose-core-dev.yml`: Adds development-specific settings
-- `docker-compose-core-bds.yml`: Adds Blockchain Data Service with PostgreSQL
+## Docker Networking
+- `xian-net`: Main network for service communication and internet access. Exposes ports 26657, 26656, 26660, 5000.
+- `xian-db`: Isolated network for database access (PostgreSQL only accessible within this network).
 
-When combining compose files with the `-f` flag, Docker merges them from left to right, with later files overriding settings from earlier ones. For example:
+## Docker Compose File Combinations
+- `docker-compose-core.yml`: Base config for Xian node
+- `docker-compose-core-dev.yml`: Adds dev settings
+- `docker-compose-core-bds.yml`: Adds BDS with PostgreSQL
+
+Combine with `-f` flag, e.g.:
 ```bash
-# Runs core with BDS - combines settings from both files
 docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up
-
-# Runs development environment with BDS - combines all three configurations
-docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up
 ```
 
-##### Makefile Shortcuts
-To simplify these commands, the Makefile provides convenient shortcuts:
+## Makefile Shortcuts (Reference)
+- `make up` — Start node without BDS
+- `make up-bds` — Start node with BDS
+- `make core-up` — Start node (core only)
+- `make core-bds-up` — Start node with BDS
+- `make core-dev-up` — Start dev environment with BDS
+- `make down` — Stop node
+- `make core-dev-down` — Stop container
 
+## Advanced: Initializing CometBFT
+If you need to initialize CometBFT manually:
 ```bash
-# Start a node without BDS
-make up
-
-# Start a node with BDS enabled
-make up-bds
-
-# Common combinations with their Makefile equivalents:
-# Regular node:
-docker-compose -f docker-compose-core.yml up -d    →    make core-up
-# Node with BDS:
-docker-compose -f docker-compose-core.yml -f docker-compose-core-bds.yml up -d    →    make core-bds-up
-# Development environment with BDS:
-docker-compose -f docker-compose-core.yml -f docker-compose-core-dev.yml -f docker-compose-core-bds.yml up -d    →    make core-dev-up
+make core-dev-shell
+make init
 ```
 
-These Makefile commands handle both starting the containers and running the node. For example, `make up-bds` is equivalent to running the containers with BDS and starting the node with BDS enabled.
+---
 
-#### Contracting Dev Quickstart
-1. Clone Contracting
-    - `git clone https://github.com/xian-network/contracting`
-    - (optional) : create a new feature branch for making changes to contracting
-        - `git checkout -b <new-branch-name>`
-2. Build the environment
-    - `make contracting-dev-build`
-3. Start the container shell
-    - `make contracting-dev-up`
-4. Run contracting unit tests
-    - `pytest contracting/`
-5. When you're finished
-    - from the test-shell `exit`
-
-#### Core Dev Quickstart
-
-*For running a xian-node with postgres for BDS*
-
-##### Build & Initialise
-1. Build the xian core environment
-    - `make core-dev-build`
-2. Start the xian core container shell
-    - `make core-dev-shell`
-3. Initialise CometBFT
-    - `make init`
-
-##### To run tests :
-1. Enter the test shell :
-    - `make core-dev-shell`
-2. Run tests:
-    - `pytest xian-core/tests/`
-3. Exit the shell when finished
-    - `exit`
-
-##### To run a node (in shell)
-1. Build the container :
-    - `make core-build` / `make core-dev-build` / `make core-bds-build`
-1. Enter the shell :
-    - `make core-dev-shell` / `make core-shell` / `make core-bds-shell`
-2. Start the node :
-    - `make up`
-3. Stop the node :
-    - `make down`
-4. Exit the shell when finished
-    - `exit`
-
-##### To run a node (without shell)
-1. Start the container:
-    - `make core-dev-up` / `make core-up` / `make core-bds-up`
-2. Start the node:
-    - `make up`
-3. Stop the node:
-    - `make down`
-4. Stop the container:
-    - `make core-dev-down`
+For more details, see the comments in each Docker Compose file or the Makefile.
 
