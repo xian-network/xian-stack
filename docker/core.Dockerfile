@@ -29,6 +29,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
 # Install pm2 globally
 RUN npm install pm2 -g
 
+RUN pm2 install pm2-logrotate \
+    && pm2 set pm2-logrotate:max_size 100M \
+    && pm2 set pm2-logrotate:retain 7
+
 # Expose port 26657 for cometbft
 EXPOSE 26657
 EXPOSE 26656
