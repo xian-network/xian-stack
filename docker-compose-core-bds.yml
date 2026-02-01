@@ -1,5 +1,3 @@
-version: '3.8'
-
 networks:
   xian-net:
     internal: false  # Allow internet access for package installation
